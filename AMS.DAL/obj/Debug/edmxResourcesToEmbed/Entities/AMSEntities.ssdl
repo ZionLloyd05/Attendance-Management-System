@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Attendance">
+    <Key>
+      <PropertyRef Name="attendanceId" />
+    </Key>
+    <Property Name="attendanceId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="courseId" Type="tinyint" Nullable="false" />
+    <Property Name="lecturerId" Type="tinyint" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="createdAt" Type="datetime" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="6" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="courseId" />
+    </Key>
+    <Property Name="courseId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="courseCode" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="unit" Type="tinyint" Nullable="false" />
+    <Property Name="cLevel" Type="tinyint" Nullable="false" />
+    <Property Name="lecturerId" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Lecturer">
+    <Key>
+      <PropertyRef Name="lecturerId" />
+    </Key>
+    <Property Name="lecturerId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StdAttendance">
+    <Key>
+      <PropertyRef Name="std_attId" />
+    </Key>
+    <Property Name="std_attId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="attendanceId" Type="tinyint" Nullable="false" />
+    <Property Name="matricNo" Type="tinyint" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="matricNo" />
+    </Key>
+    <Property Name="matricNo" Type="tinyint" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="currentLevel" Type="tinyint" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="phone" Type="numeric" Precision="11" Scale="0" Nullable="false" />
+    <Property Name="fingerprint" Type="image" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Attendance_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="courseId" />
+      </Principal>
+      <Dependent Role="Attendance">
+        <PropertyRef Name="courseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Attendance_Lecturer">
+    <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="1" />
+    <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lecturer">
+        <PropertyRef Name="lecturerId" />
+      </Principal>
+      <Dependent Role="Attendance">
+        <PropertyRef Name="lecturerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Course_Lecturer">
+    <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="1" />
+    <End Role="Course" Type="Self.Course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lecturer">
+        <PropertyRef Name="lecturerId" />
+      </Principal>
+      <Dependent Role="Course">
+        <PropertyRef Name="lecturerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StdAttendance_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="StdAttendance" Type="Self.StdAttendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="matricNo" />
+      </Principal>
+      <Dependent Role="StdAttendance">
+        <PropertyRef Name="matricNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AMSModelStoreContainer">
+    <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lecturer" EntityType="Self.Lecturer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StdAttendance" EntityType="Self.StdAttendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Attendance_Course" Association="Self.FK_Attendance_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Attendance" EntitySet="Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Attendance_Lecturer" Association="Self.FK_Attendance_Lecturer">
+      <End Role="Lecturer" EntitySet="Lecturer" />
+      <End Role="Attendance" EntitySet="Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Course_Lecturer" Association="Self.FK_Course_Lecturer">
+      <End Role="Lecturer" EntitySet="Lecturer" />
+      <End Role="Course" EntitySet="Course" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StdAttendance_Student" Association="Self.FK_StdAttendance_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="StdAttendance" EntitySet="StdAttendance" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

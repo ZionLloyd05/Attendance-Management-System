@@ -1,0 +1,10 @@
+C:\Users\eLloydServe\Documents\Visual Studio 2015\Projects\AMS\AMS.DAL\bin\Debug\AMS.DAL.dll.config
+C:\Users\eLloydServe\Documents\Visual Studio 2015\Projects\AMS\AMS.DAL\bin\Debug\AMS.DAL.dll
+C:\Users\eLloydServe\Documents\Visual Studio 2015\Projects\AMS\AMS.DAL\bin\Debug\AMS.DAL.pdb
+C:\Users\eLloydServe\Documents\Visual Studio 2015\Projects\AMS\AMS.DAL\bin\Debug\EntityFramework.dll
+C:\Users\eLloydServe\Documents\Visual Studio 2015\Projects\AMS\AMS.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\eLloydServe\Documents\Visual Studio 2015\Projects\AMS\AMS.DAL\bin\Debug\EntityFramework.xml
+C:\Users\eLloydServe\Documents\Visual Studio 2015\Projects\AMS\AMS.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\eLloydServe\Documents\Visual Studio 2015\Projects\AMS\AMS.DAL\obj\Debug\AMS.DAL.csprojResolveAssemblyReference.cache
+C:\Users\eLloydServe\Documents\Visual Studio 2015\Projects\AMS\AMS.DAL\obj\Debug\AMS.DAL.dll
+C:\Users\eLloydServe\Documents\Visual Studio 2015\Projects\AMS\AMS.DAL\obj\Debug\AMS.DAL.pdb
