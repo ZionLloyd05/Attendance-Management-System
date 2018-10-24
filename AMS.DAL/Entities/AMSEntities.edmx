@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="attendanceId" />
+          </Key>
+          <Property Name="attendanceId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="courseId" Type="tinyint" Nullable="false" />
+          <Property Name="lecturerId" Type="tinyint" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="courseId" />
+          </Key>
+          <Property Name="courseId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="courseCode" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="unit" Type="tinyint" Nullable="false" />
+          <Property Name="cLevel" Type="tinyint" Nullable="false" />
+          <Property Name="lecturerId" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lecturer">
+          <Key>
+            <PropertyRef Name="lecturerId" />
+          </Key>
+          <Property Name="lecturerId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StdAttendance">
+          <Key>
+            <PropertyRef Name="std_attId" />
+          </Key>
+          <Property Name="std_attId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="attendanceId" Type="tinyint" Nullable="false" />
+          <Property Name="matricNo" Type="tinyint" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="matricNo" />
+          </Key>
+          <Property Name="matricNo" Type="tinyint" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="currentLevel" Type="tinyint" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="phone" Type="numeric" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="fingerprint" Type="image" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Attendance_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attendance_Lecturer">
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturer">
+              <PropertyRef Name="lecturerId" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="lecturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_Lecturer">
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturer">
+              <PropertyRef Name="lecturerId" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="lecturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StdAttendance_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StdAttendance" Type="Self.StdAttendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="matricNo" />
+            </Principal>
+            <Dependent Role="StdAttendance">
+              <PropertyRef Name="matricNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AMSModelStoreContainer">
+          <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lecturer" EntityType="Self.Lecturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StdAttendance" EntityType="Self.StdAttendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Attendance_Course" Association="Self.FK_Attendance_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attendance_Lecturer" Association="Self.FK_Attendance_Lecturer">
+            <End Role="Lecturer" EntitySet="Lecturer" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Lecturer" Association="Self.FK_Course_Lecturer">
+            <End Role="Lecturer" EntitySet="Lecturer" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StdAttendance_Student" Association="Self.FK_StdAttendance_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StdAttendance" EntitySet="StdAttendance" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="attendanceId" />
+          </Key>
+          <Property Name="attendanceId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="courseId" Type="Byte" Nullable="false" />
+          <Property Name="lecturerId" Type="Byte" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Lecturer" Relationship="Self.FK_Attendance_Lecturer" FromRole="Attendance" ToRole="Lecturer" />
+          <NavigationProperty Name="Course" Relationship="AMSModel.FK_Attendance_Course" FromRole="Attendance" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="courseId" />
+          </Key>
+          <Property Name="courseId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="courseCode" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="unit" Type="Byte" Nullable="false" />
+          <Property Name="cLevel" Type="Byte" Nullable="false" />
+          <Property Name="lecturerId" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Lecturer" Relationship="Self.FK_Course_Lecturer" FromRole="Course" ToRole="Lecturer" />
+          <NavigationProperty Name="Attendances" Relationship="AMSModel.FK_Attendance_Course" FromRole="Course" ToRole="Attendance" />
+        </EntityType>
+        <EntityType Name="Lecturer">
+          <Key>
+            <PropertyRef Name="lecturerId" />
+          </Key>
+          <Property Name="lecturerId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Lecturer" FromRole="Lecturer" ToRole="Attendance" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_Course_Lecturer" FromRole="Lecturer" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="StdAttendance">
+          <Key>
+            <PropertyRef Name="std_attId" />
+          </Key>
+          <Property Name="std_attId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="attendanceId" Type="Byte" Nullable="false" />
+          <Property Name="matricNo" Type="Byte" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_StdAttendance_Student" FromRole="StdAttendance" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="matricNo" />
+          </Key>
+          <Property Name="matricNo" Type="Byte" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="currentLevel" Type="Byte" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="fingerprint" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="StdAttendances" Relationship="Self.FK_StdAttendance_Student" FromRole="Student" ToRole="StdAttendance" />
+        </EntityType>
+        <Association Name="FK_Attendance_Lecturer">
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturer">
+              <PropertyRef Name="lecturerId" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="lecturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_Lecturer">
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturer">
+              <PropertyRef Name="lecturerId" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="lecturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StdAttendance_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StdAttendance" Type="Self.StdAttendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="matricNo" />
+            </Principal>
+            <Dependent Role="StdAttendance">
+              <PropertyRef Name="matricNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Attendances" EntityType="Self.Attendance" />
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="Lecturers" EntityType="Self.Lecturer" />
+          <EntitySet Name="StdAttendances" EntityType="Self.StdAttendance" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <AssociationSet Name="FK_Attendance_Lecturer" Association="Self.FK_Attendance_Lecturer">
+            <End Role="Lecturer" EntitySet="Lecturers" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Lecturer" Association="Self.FK_Course_Lecturer">
+            <End Role="Lecturer" EntitySet="Lecturers" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StdAttendance_Student" Association="Self.FK_StdAttendance_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="StdAttendance" EntitySet="StdAttendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attendance_Course" Association="AMSModel.FK_Attendance_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Attendance_Course">
+          <End Type="AMSModel.Course" Role="Course" Multiplicity="1" />
+          <End Type="AMSModel.Attendance" Role="Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AMSModelStoreContainer" CdmEntityContainer="AMSEntities">
+          <EntitySetMapping Name="Attendances">
+            <EntityTypeMapping TypeName="AMSModel.Attendance">
+              <MappingFragment StoreEntitySet="Attendance">
+                <ScalarProperty Name="attendanceId" ColumnName="attendanceId" />
+                <ScalarProperty Name="courseId" ColumnName="courseId" />
+                <ScalarProperty Name="lecturerId" ColumnName="lecturerId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="AMSModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="courseId" ColumnName="courseId" />
+                <ScalarProperty Name="courseCode" ColumnName="courseCode" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="cLevel" ColumnName="cLevel" />
+                <ScalarProperty Name="lecturerId" ColumnName="lecturerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lecturers">
+            <EntityTypeMapping TypeName="AMSModel.Lecturer">
+              <MappingFragment StoreEntitySet="Lecturer">
+                <ScalarProperty Name="lecturerId" ColumnName="lecturerId" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StdAttendances">
+            <EntityTypeMapping TypeName="AMSModel.StdAttendance">
+              <MappingFragment StoreEntitySet="StdAttendance">
+                <ScalarProperty Name="std_attId" ColumnName="std_attId" />
+                <ScalarProperty Name="attendanceId" ColumnName="attendanceId" />
+                <ScalarProperty Name="matricNo" ColumnName="matricNo" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="AMSModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="matricNo" ColumnName="matricNo" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="currentLevel" ColumnName="currentLevel" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fingerprint" ColumnName="fingerprint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
