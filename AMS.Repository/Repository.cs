@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AMS.DAL
+namespace AMS.Repository
 {
-    public interface IEntity
+    public class Repository
     {
     }
 }

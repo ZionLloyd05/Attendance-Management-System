@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS.DAL", "AMS.DAL\AMS.DAL.csproj", "{8B1F05A7-816D-4BB0-9827-1E8467A5B0D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3.AMS.DAL", "AMS.DAL\3.AMS.DAL.csproj", "{8B1F05A7-816D-4BB0-9827-1E8467A5B0D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2.AMS.Repository", "AMS.Repository\2.AMS.Repository.csproj", "{B435B9A6-7F93-4D85-8DEC-184A7D864106}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8B1F05A7-816D-4BB0-9827-1E8467A5B0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B1F05A7-816D-4BB0-9827-1E8467A5B0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B1F05A7-816D-4BB0-9827-1E8467A5B0D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B435B9A6-7F93-4D85-8DEC-184A7D864106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B435B9A6-7F93-4D85-8DEC-184A7D864106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B435B9A6-7F93-4D85-8DEC-184A7D864106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B435B9A6-7F93-4D85-8DEC-184A7D864106}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
