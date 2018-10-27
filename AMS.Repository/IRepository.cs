@@ -7,7 +7,7 @@ using AMS.DAL;
 
 namespace AMS.Repository
 {
-    interface IRepository
+    public interface IRepository
     {
         int Create(IEntity entity);
         int Update(IEntity entity);
